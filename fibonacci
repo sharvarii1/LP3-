@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+
+int fibonacciR(int n, int &stepCountR) {
+    stepCountR++;  // Increment step count for each function call
+    if (n <= 1) return n;
+    return fibonacciR(n - 1, stepCountR) + fibonacciR(n - 2, stepCountR);
+}
+
+int fibonacciI(int n) {
+    int stepCountI = 0;  // Initialize step count
+    if (n <= 1) return n;
+
+    int a = 0, b = 1, result = 0;
+    stepCountI += 2; // Two initial assignments for a and b
+
+    for (int i = 2; i <= n; i++) {
+        result = a + b;
+        a = b;
+        b = result;
+        stepCountI += 3; // Three operations in each loop iteration
+    }
+
+    return stepCountI;
+}
+
+int main() {
+    int n = 10;  // Example: find the 10th Fibonacci number
+    int stepCountR = 0;
+    int result = fibonacciR(n, stepCountR);
+    int stepCountI = fibonacciI(n);
+
+    cout << "Fibonacci number at position " << n << " is: " << result << endl;
+    cout << "Number of steps taken in Recursive: " << stepCountR << endl;
+    cout << "Number of steps taken in Iterative: " << stepCountI << endl;
+
+    return 0;
+}
